@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { map } from 'lodash';
+import { map, unset, set } from 'lodash';
 
 import {
   getComponentProps,
   getElementType,
   getChildren,
   isValidChildren,
+  getPropWith,
 } from '@crpt/react-utils';
 
 import {
@@ -19,26 +20,28 @@ const Select = (props) => {
 
   const ElementType = getElementType(componentProps);
 
-  const { data, renderOption, ...passProps } = componentProps;
-
   const children = getChildren(componentProps, {
-    getDefault: () => {
-      const values = typeof data === 'function'
-        ? data(passProps)
-        : data;
+    getDefault: (ownProps) => {
+      const data = getPropWith(ownProps, 'data');
+      const { renderOption, ...passProps } = ownProps;
 
       const defaultChildren = typeof renderOption === 'function'
-        ? map(values, (option, key) => renderOption(option, passProps, key))
+        ? map(data, (option, key) => renderOption(option, passProps, key))
         : null;
 
       return isValidChildren(defaultChildren)
         ? defaultChildren
         : null;
     },
+    updateProps: (propValue, propName, ownProps) => {
+      unset(ownProps, 'data');
+      unset(ownProps, 'renderOption');
+      set(ownProps, propName, propValue);
+    }
   });
 
   return (
-    <ElementType {...passProps}>
+    <ElementType {...componentProps}>
       {children}
     </ElementType>
   );
