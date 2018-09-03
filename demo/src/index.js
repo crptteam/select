@@ -11,14 +11,14 @@ const data = [
 
 const getData = () => data;
 
-const itemProps = () => ({style: {color: 'red'}});
+const optionProps = () => ({style: {color: 'red'}});
 
 const props = () => ({style: {backgroundColor: 'green'}});
 
 const Demo = () => (
   <React.Fragment>
     <div>default select</div>
-    <Select data={data} getItemProps={itemProps} />
+    <Select data={data} getOptionProps={optionProps} />
     <hr />
     <div>with 'as' styled component</div>
     <Select as={styled.select``} data={data} getProps={props} />
@@ -28,6 +28,12 @@ const Demo = () => (
     <hr />
     <div>data as function</div>
     <Select data={getData} />
+    <hr />
+    <div>selected option</div>
+    <Select data={data} defaultValue={data[1].value} />
+    <hr />
+    <div>multi selected option</div>
+    <Select data={data} defaultValue={[data[1].value, data[2].value]} multiple />
   </React.Fragment>
 );
 

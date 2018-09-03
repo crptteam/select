@@ -15,8 +15,9 @@ export const SelectPropTypes = {
   ]),
 
   data: SelectDataType.isRequired,
+  multiple: PropTypes.bool,
 
-  getItemProps: PropTypes.func,
+  getOptionProps: PropTypes.func,
   getProps: PropTypes.func,
 
   renderOption: PropTypes.func,

@@ -11,7 +11,7 @@ import { SelectItem } from '../styled';
 
 export const renderOption = (item, props = {}, key) => {
   const collectedProps = collectProps(props, {
-    accessor: 'getItemProps',
+    accessor: 'getOptionProps',
     initial: item,
   });
 
@@ -19,11 +19,11 @@ export const renderOption = (item, props = {}, key) => {
     getDefault: () => getElementType(props, {
       getDefault: () => SelectItem,
       shorthand: [
-        'Item',
-        'ItemComponent',
-        'ItemElementType',
-        'ItemRender',
-        'ItemType',
+        'Option',
+        'OptionComponent',
+        'OptionElementType',
+        'OptionRender',
+        'OptionType',
       ],
       updateProps: false,
     }),
